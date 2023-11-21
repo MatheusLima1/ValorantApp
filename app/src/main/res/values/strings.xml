@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ValorantCompose</string>
+    <string name="agents_content_description">Agent Image</string>
+    <string name="agents">Agents</string>
+    <string name="buddies">Buddies</string>
+    <string name="bundles">Bundles</string>
+    <string name="tiers">Tiers</string>
+    <string name="contracts">Contracts</string>
+    <string name="events">Events</string>
+    <string name="maps">Maps</string>
+    <string name="weapons">Weapons</string>
+</resources>
