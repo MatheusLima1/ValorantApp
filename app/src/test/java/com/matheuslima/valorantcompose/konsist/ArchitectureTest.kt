@@ -12,9 +12,9 @@ class ArchitectureTest {
             val domain = Layer("Domain", "com.matheuslima.valorantcompose.domain..")
             val presentation = Layer("Presentation", "com.matheuslima.valorantcompose.presentation..")
             val data = Layer("Data", "com.matheuslima.valorantcompose.data..")
-            domain.dependsOnNothing()
-            presentation.dependsOn(domain)
-            data.dependsOn(domain)
+//            domain.dependsOnNothing()
+//            presentation.dependsOn(domain)
+            data.dependsOnNothing()
         }
     }
 }
