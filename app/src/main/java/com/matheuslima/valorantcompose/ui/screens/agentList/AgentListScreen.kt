@@ -15,6 +15,7 @@ import androidx.navigation.NavController
 import com.matheuslima.utilities.BaseResponse
 import com.matheuslima.valorantcompose.R
 import com.matheuslima.valorantcompose.ui.screens.agentList.components.AgentListItem
+import com.matheuslima.valorantcompose.ui.screens.errorScreens.EmptyScreen
 import com.matheuslima.valorantcompose.ui.screens.errorScreens.components.LottieAnimationComponent
 import com.matheuslima.valorantcompose.ui.viewmodel.AgentListViewModel
 
@@ -39,14 +40,15 @@ fun AgentListScreen(navController: NavController, viewModel: AgentListViewModel 
     ) { page: Int ->
         when (agentsResponse) {
             is BaseResponse.Loading -> {
-                LottieAnimationComponent(modifier = Modifier, rawUrl = R.raw.loading)
+                LottieAnimationComponent(rawUrl = R.raw.loading)
             }
 
             is BaseResponse.Success -> {
                 val response = (agentsResponse as BaseResponse.Success).data
                 if (response.data.isNotEmpty()) {
 //                    AgentListItem(agent = response.data.filter { agent -> agent.isPlayableCharacter == true }[page])
-                    AgentListItem(agent = response.data[page])
+//                    AgentListItem(agent = response.data[page])
+                    EmptyScreen()
                 } else {
                     //TODO Create empty list
                 }
@@ -57,6 +59,8 @@ fun AgentListScreen(navController: NavController, viewModel: AgentListViewModel 
                 val error = (agentsResponse as BaseResponse.Error).error
                 print("${error.message} -  ${error.stackTrace}")
             }
+
+            else -> {}
         }
     }
 }
