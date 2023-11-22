@@ -2,7 +2,6 @@ package com.matheuslima.valorantcompose.data.repository
 
 import com.matheuslima.utilities.BaseResponse
 import com.matheuslima.utilities.exceptions.AgentsDataNotReceivedException
-import com.matheuslima.utilities.exceptions.BaseException
 import com.matheuslima.utilities.exceptions.EmptyDataException
 import com.matheuslima.valorantcompose.data.datasource.interfaces.AgentsDataSource
 import com.matheuslima.valorantcompose.data.response.entities.Agents

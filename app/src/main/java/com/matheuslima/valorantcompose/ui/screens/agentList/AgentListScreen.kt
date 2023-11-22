@@ -49,14 +49,20 @@ fun AgentListScreen(navController: NavController, viewModel: AgentListViewModel 
                 if (response.data.isNotEmpty()) {
                     AgentListItem(agent = response.data.filter { agent -> agent.isPlayableCharacter == true }[page])
                 } else {
-                    GeneralScreenErrorComponent(animationPath = R.raw.dog_sad, exception = EmptyDataException())
+                    GeneralScreenErrorComponent(
+                        animationPath = R.raw.dog_sad,
+                        exception = EmptyDataException()
+                    )
                 }
             }
 
             is BaseResponse.Error -> {
                 val error = (agentsResponse as BaseResponse.Error).error
                 print("${error.message} -  ${error.stackTrace}")
-                GeneralScreenErrorComponent(animationPath = R.raw.tomato_typing, exception = error)
+                GeneralScreenErrorComponent(
+                    animationPath = R.raw.under_maintence,
+                    exception = error
+                )
             }
 
             else -> {}

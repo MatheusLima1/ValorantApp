@@ -6,6 +6,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
 import com.matheuslima.valorantcompose.ui.screens.agentList.AgentListScreen
 import com.matheuslima.valorantcompose.ui.screens.homeScreen.HomeScreen
+import com.matheuslima.valorantcompose.ui.screens.notImplementedYetScreen.NotImplementedYetScreen
 
 @Composable
 fun ValorantAppNavGraph() {
@@ -16,6 +17,9 @@ fun ValorantAppNavGraph() {
         }
         composable(Routes.AGENT_LIST_SCREEN){
             AgentListScreen(navController = navController)
+        }
+        composable(Routes.NOT_IMPLEMENTED_YET_SCREEN){
+            NotImplementedYetScreen()
         }
     }
 }

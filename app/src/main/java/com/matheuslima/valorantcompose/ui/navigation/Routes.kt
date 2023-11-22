@@ -4,4 +4,5 @@ object Routes {
     const val HOME_SCREEN = "Home"
     const val AGENT_LIST_SCREEN = "AgentListScreen"
     const val AGENT_DETAIL_SCREEN = "AgentDetailScreen"
+    const val NOT_IMPLEMENTED_YET_SCREEN = "NotImplementedYetScreen"
 }
