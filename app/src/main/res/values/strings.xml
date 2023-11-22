@@ -10,4 +10,6 @@
     <string name="maps">Maps</string>
     <string name="weapons">Weapons</string>
     <string name="no_data_found">No data found</string>
+    <string name="error_404_title">Weren\'t able to find what you was looking for</string>
+    <string name="please_try_again_later">Please, try again later</string>
 </resources>
