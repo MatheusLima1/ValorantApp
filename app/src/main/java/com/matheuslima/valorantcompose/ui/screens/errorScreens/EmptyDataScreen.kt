@@ -32,10 +32,11 @@ fun EmptyScreen(modifier: Modifier = Modifier) {
         ConstraintLayout {
             val animationRef = createRef()
             val textTitleRef = createRef()
+            val textDescriptionRef = createRef()
             LottieAnimationComponent(rawUrl = R.raw.dog_sad,
                 modifier = Modifier
                     .wrapContentHeight()
-                    .fillMaxWidth()
+                    .size(400.dp)
                     .constrainAs(animationRef) {
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
@@ -44,13 +45,27 @@ fun EmptyScreen(modifier: Modifier = Modifier) {
             Text(text = stringResource(R.string.no_data_found),
                 fontStyle = Typography.titleLarge.fontStyle,
                 fontSize = Typography.titleLarge.fontSize,
+                fontFamily = Typography.titleLarge.fontFamily,
+                fontWeight = Typography.titleLarge.fontWeight,
+                color = Color.Black,
                 modifier = Modifier
-                    .fillMaxWidth()
                     .constrainAs(textTitleRef) {
                         start.linkTo(animationRef.start)
                         end.linkTo(animationRef.end)
-                        top.linkTo(animationRef.top)
+                        top.linkTo(animationRef.bottom)
                         bottom.linkTo(parent.bottom)
+                    })
+            Text(text = "Please, try again later",
+                fontStyle = Typography.bodyLarge.fontStyle,
+                fontSize = Typography.bodyLarge.fontSize,
+                fontFamily = Typography.bodyLarge.fontFamily,
+                fontWeight = Typography.bodyLarge.fontWeight,
+                color = Color.Black,
+                modifier = Modifier
+                    .constrainAs(textDescriptionRef) {
+                        start.linkTo(textTitleRef.start)
+                        end.linkTo(textTitleRef.end)
+                        top.linkTo(textTitleRef.bottom)
                     })
         }
 

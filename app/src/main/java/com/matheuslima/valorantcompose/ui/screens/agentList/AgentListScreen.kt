@@ -47,8 +47,7 @@ fun AgentListScreen(navController: NavController, viewModel: AgentListViewModel 
                 val response = (agentsResponse as BaseResponse.Success).data
                 if (response.data.isNotEmpty()) {
 //                    AgentListItem(agent = response.data.filter { agent -> agent.isPlayableCharacter == true }[page])
-//                    AgentListItem(agent = response.data[page])
-                    EmptyScreen()
+                    AgentListItem(agent = response.data[page])
                 } else {
                     //TODO Create empty list
                 }
