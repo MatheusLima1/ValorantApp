@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.matheuslima.valorantcompose.R
 import com.matheuslima.valorantcompose.ui.navigation.Routes.AGENT_LIST_SCREEN
+import com.matheuslima.valorantcompose.ui.navigation.Routes.NOT_IMPLEMENTED_YET_SCREEN
 import com.matheuslima.valorantcompose.ui.screens.homeScreen.components.HomeScreenItem
 
 const val TAG = "HOMESCREEN"
@@ -36,19 +37,40 @@ fun HomeScreen(navController: NavController) {
             stringResource(R.string.agents)
         ) { navController.navigate(AGENT_LIST_SCREEN) }
         Spacer(modifier = Modifier.size(5.dp))
-        HomeScreenItem(R.drawable.buddie_list_background, stringResource(R.string.buddies))
+        HomeScreenItem(
+            R.drawable.buddie_list_background,
+            stringResource(R.string.buddies)
+        ) { navController.navigate(NOT_IMPLEMENTED_YET_SCREEN) }
         Spacer(modifier = Modifier.size(5.dp))
-        HomeScreenItem(R.drawable.bundle_list_background, stringResource(R.string.bundles))
+        HomeScreenItem(
+            R.drawable.bundle_list_background,
+            stringResource(R.string.bundles)
+        ) { navController.navigate(NOT_IMPLEMENTED_YET_SCREEN) }
         Spacer(modifier = Modifier.size(5.dp))
-        HomeScreenItem(R.drawable.competitive_tier_list_background, stringResource(R.string.tiers))
+        HomeScreenItem(
+            R.drawable.competitive_tier_list_background,
+            stringResource(R.string.tiers)
+        ) { navController.navigate(NOT_IMPLEMENTED_YET_SCREEN) }
         Spacer(modifier = Modifier.size(5.dp))
-        HomeScreenItem(R.drawable.contract_list_background, stringResource(R.string.contracts))
+        HomeScreenItem(
+            R.drawable.contract_list_background,
+            stringResource(R.string.contracts)
+        ) { navController.navigate(NOT_IMPLEMENTED_YET_SCREEN) }
         Spacer(modifier = Modifier.size(5.dp))
-        HomeScreenItem(R.drawable.events_list_background, stringResource(R.string.events))
+        HomeScreenItem(
+            R.drawable.events_list_background,
+            stringResource(R.string.events)
+        ) { navController.navigate(NOT_IMPLEMENTED_YET_SCREEN) }
         Spacer(modifier = Modifier.size(5.dp))
-        HomeScreenItem(R.drawable.maps_list_background, stringResource(R.string.maps))
+        HomeScreenItem(
+            R.drawable.maps_list_background,
+            stringResource(R.string.maps)
+        ) { navController.navigate(NOT_IMPLEMENTED_YET_SCREEN) }
         Spacer(modifier = Modifier.size(5.dp))
-        HomeScreenItem(R.drawable.weapons_list_background, stringResource(R.string.weapons))
+        HomeScreenItem(
+            R.drawable.weapons_list_background,
+            stringResource(R.string.weapons)
+        ) { navController.navigate(NOT_IMPLEMENTED_YET_SCREEN) }
     }
 }
 

@@ -23,7 +23,8 @@ import com.matheuslima.valorantcompose.ui.theme.Typography
 fun GeneralScreenErrorComponent(
     modifier: Modifier = Modifier,
     animationPath: Int,
-    exception: BaseException
+    exception: BaseException,
+    title: String = stringResource(R.string.please_try_again_later)
 ) {
     Column(
         modifier
@@ -43,7 +44,7 @@ fun GeneralScreenErrorComponent(
                         end.linkTo(parent.end)
                         top.linkTo(parent.top)
                     })
-            Text(text = exception.message!!,
+            Text(text = title,
                 fontStyle = Typography.titleLarge.fontStyle,
                 fontSize = Typography.titleLarge.fontSize,
                 fontFamily = Typography.titleLarge.fontFamily,
@@ -58,12 +59,13 @@ fun GeneralScreenErrorComponent(
                         bottom.linkTo(parent.bottom)
                     })
 
-            Text(text = stringResource(R.string.please_try_again_later),
+            Text(text = exception.message!!,
                 fontStyle = Typography.bodyLarge.fontStyle,
                 fontSize = Typography.bodyLarge.fontSize,
                 fontFamily = Typography.bodyLarge.fontFamily,
                 fontWeight = Typography.bodyLarge.fontWeight,
                 color = Color.Black,
+                textAlign = TextAlign.Center,
                 modifier = Modifier
                     .constrainAs(textDescriptionRef) {
                         start.linkTo(textTitleRef.start)
@@ -77,5 +79,8 @@ fun GeneralScreenErrorComponent(
 @Composable
 @Preview
 fun GeneralScreenErrorComponentPreview() {
-    GeneralScreenErrorComponent(animationPath = R.raw.tomato_typing, exception = EmptyDataException())
+    GeneralScreenErrorComponent(
+        animationPath = R.raw.tomato_typing,
+        exception = EmptyDataException()
+    )
 }
