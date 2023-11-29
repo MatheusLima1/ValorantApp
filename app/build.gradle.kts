@@ -112,6 +112,8 @@ dependencies {
     androidTestImplementation (libs.mockk.android)
     testImplementation (libs.androidx.core.testing)
     testImplementation(libs.konsist)
+    testImplementation(libs.turbine)
+    testImplementation(libs.truth)
 }
 
 kapt {
