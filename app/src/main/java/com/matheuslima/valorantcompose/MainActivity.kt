@@ -19,16 +19,20 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.matheuslima.utilities.LoggerProvider
+import com.matheuslima.utilities.LoggerProviderImpl
 import com.matheuslima.valorantcompose.ui.navigation.ValorantAppNavGraph
 import com.matheuslima.valorantcompose.ui.theme.ValorantComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), LoggerProvider by LoggerProviderImpl() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        registerLifecycleOwner(TAG, this)
+
         setContent {
             ValorantComposeTheme {
                 Scaffold(topBar = {
@@ -51,6 +55,10 @@ class MainActivity : ComponentActivity() {
 
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
     }
 }
 

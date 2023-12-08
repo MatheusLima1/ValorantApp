@@ -7,6 +7,8 @@ import com.matheuslima.valorantcompose.data.datasource.interfaces.AgentsDataSour
 import com.matheuslima.valorantcompose.data.datasource.remote.RemoteAgentsDataSourceImpl
 import com.matheuslima.valorantcompose.data.repository.AgentsRepository
 import com.matheuslima.valorantcompose.data.repository.AgentsRepositoryImpl
+import com.matheuslima.valorantcompose.ui.helper.DefaultDispatchers
+import com.matheuslima.valorantcompose.ui.helper.DispatcherProvider
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -55,7 +57,12 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providesAgentsRepository(agentsDataSource: AgentsDataSource): AgentsRepository {
-        return AgentsRepositoryImpl(agentsDataSource)
+    fun providesDefaultDispatchers(): DispatcherProvider {
+        return DefaultDispatchers()
+    }
+    @Singleton
+    @Provides
+    fun providesAgentsRepository(agentsDataSource: AgentsDataSource, dispatchers: DispatcherProvider): AgentsRepository {
+        return AgentsRepositoryImpl(agentsDataSource, dispatchers)
     }
 }

@@ -1,62 +1,50 @@
 package com.matheuslima.valorantcompose.ui.screens.homeScreen.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import com.matheuslima.valorantcompose.R
+import com.matheuslima.valorantcompose.ui.theme.Purple80
+import com.matheuslima.valorantcompose.ui.theme.Typography
 
 @Composable
 fun HomeScreenItem(agentsListBackground: Int, title: String, onClick: () -> Unit = {}) {
-    Box(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp)
             .clip(RoundedCornerShape(5.dp))
-            .background(Color.White)
+            .background(Color.Black)
             .clickable { onClick() }
     ) {
-        ConstraintLayout(Modifier.fillMaxSize()) {
-            val surface = createRef()
-            Image(
-                painter = painterResource(id = agentsListBackground),
-                contentDescription = stringResource(id = R.string.agents_content_description),
-                modifier = Modifier.fillMaxWidth()
-            )
-            Surface(color = Color.Black.copy(alpha = 0.6f),
-                modifier = Modifier
-                    .constrainAs(surface) {
-                        end.linkTo(parent.end)
-                        bottom.linkTo(parent.bottom)
-                    }
-                    .clip(RoundedCornerShape(10.dp))) {
-                Text(
-                    text = title,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Normal,
-                    fontFamily = FontFamily.Monospace,
-                    color = Color.White,
-                    modifier = Modifier.padding(5.dp)
-                )
-            }
-        }
+        Text(
+            text = title,
+            fontSize = Typography.titleLarge.fontSize,
+            fontWeight = FontWeight.Normal,
+            fontFamily = FontFamily.Monospace,
+            color = Purple80,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
+            textAlign = TextAlign.Center
+        )
     }
+}
+
+@Preview
+@Composable
+fun HomeScreenItemPreview() {
+    HomeScreenItem(agentsListBackground = R.drawable.buddie_list_background, title = "Test")
 }

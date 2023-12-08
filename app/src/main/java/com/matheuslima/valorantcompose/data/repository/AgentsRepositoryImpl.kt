@@ -5,12 +5,18 @@ import com.matheuslima.utilities.exceptions.AgentsDataNotReceivedException
 import com.matheuslima.utilities.exceptions.EmptyDataException
 import com.matheuslima.valorantcompose.data.datasource.interfaces.AgentsDataSource
 import com.matheuslima.valorantcompose.data.response.entities.Agents
+import com.matheuslima.valorantcompose.ui.helper.DefaultDispatchers
+import com.matheuslima.valorantcompose.ui.helper.DispatcherProvider
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class AgentsRepositoryImpl @Inject constructor(private val agentsDataSource: AgentsDataSource) :
+class AgentsRepositoryImpl @Inject constructor(
+    private val agentsDataSource: AgentsDataSource,
+    private val defaultDispatchers: DispatcherProvider
+) :
     AgentsRepository {
 
     override suspend fun getAgents(language: String?): Flow<BaseResponse<Agents>> = flow {
@@ -22,4 +28,5 @@ class AgentsRepositoryImpl @Inject constructor(private val agentsDataSource: Age
             emit(BaseResponse.Error(EmptyDataException()))
         }
     }.catch { e -> emit(BaseResponse.Error(AgentsDataNotReceivedException(e))) }
+        .flowOn(defaultDispatchers.io)
 }

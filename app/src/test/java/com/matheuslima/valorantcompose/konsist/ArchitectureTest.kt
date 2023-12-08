@@ -10,10 +10,10 @@ class ArchitectureTest {
     fun `clean architecture layers have correct dependencies`(){
         Konsist.scopeFromProject().assertArchitecture {
             val domain = Layer("Domain", "com.matheuslima.valorantcompose.domain..")
-            val presentation = Layer("Presentation", "com.matheuslima.valorantcompose.presentation..")
+            val presentation = Layer("Presentation", "com.matheuslima.valorantcompose.ui..")
             val data = Layer("Data", "com.matheuslima.valorantcompose.data..")
 //            domain.dependsOnNothing()
-//            presentation.dependsOn(domain)
+            presentation.dependsOn(data)
             data.dependsOnNothing()
         }
     }
