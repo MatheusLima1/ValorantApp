@@ -21,7 +21,7 @@ import com.matheuslima.valorantcompose.ui.theme.Purple80
 import com.matheuslima.valorantcompose.ui.theme.Typography
 
 @Composable
-fun HomeScreenItem(agentsListBackground: Int, title: String, onClick: () -> Unit = {}) {
+fun HomeScreenItem(title: String, onClick: () -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,5 +46,5 @@ fun HomeScreenItem(agentsListBackground: Int, title: String, onClick: () -> Unit
 @Preview
 @Composable
 fun HomeScreenItemPreview() {
-    HomeScreenItem(agentsListBackground = R.drawable.buddie_list_background, title = "Test")
+    HomeScreenItem(title = "Test")
 }

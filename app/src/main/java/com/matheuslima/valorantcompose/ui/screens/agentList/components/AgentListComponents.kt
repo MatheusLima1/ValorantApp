@@ -2,6 +2,7 @@ package com.matheuslima.valorantcompose.ui.screens.agentList.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -9,6 +10,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -19,7 +21,8 @@ import com.matheuslima.valorantcompose.ui.helper.ColorGradientHelper.transformLi
 
 @Composable
 fun AgentListItem(
-    agent: Agent
+    agent: Agent,
+    onClickAgent: (uuid: String) -> Unit = {}
 ) {
     val brush = agent.backgroundGradientColors?.let {
         Brush.horizontalGradient(transformListColorStringInListColor(it))
@@ -54,6 +57,7 @@ fun AgentListItem(
             contentDescription = "display icon image",
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
+                .size(200.dp)
                 .constrainAs(displayIconRef) {
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
