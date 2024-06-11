@@ -1,6 +1,5 @@
 package com.matheuslima.valorantcompose.ui.screens.homeScreen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +10,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,14 +19,16 @@ import com.matheuslima.valorantcompose.R
 import com.matheuslima.valorantcompose.ui.navigation.AgentListScreen
 import com.matheuslima.valorantcompose.ui.navigation.NotImplementedYetScreen
 import com.matheuslima.valorantcompose.ui.screens.homeScreen.components.HomeScreenItem
+import com.matheuslima.valorantcompose.ui.theme.Purple80
+import com.matheuslima.valorantcompose.ui.theme.setStatusBarColor
 
 const val TAG = "HOMESCREEN"
 
 @Composable
 fun HomeScreen(navController: NavController, windowSize: WindowSizeClass?) {
+    setStatusBarColor(Purple80)
     Column(
         modifier = Modifier
-            .background(Color.LightGray)
             .fillMaxSize()
             .padding(10.dp)
             .verticalScroll(rememberScrollState())
