@@ -78,6 +78,3 @@ To fix a bug present the master, first, you need to check the master branch, the
     <td><img src="imgs/agentListFull.jpg" alt="Agent List" height = 640px/></td>
   </tr> 
 </table>
-
-## Future versions:
-Still have a lot of stuff to be done haha, you can always look in the issues tab to be up-to-date about what coming next.
