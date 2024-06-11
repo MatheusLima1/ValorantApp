@@ -1,8 +1,12 @@
 package com.matheuslima.valorantcompose.ui.navigation
 
-object Routes {
-    const val HOME_SCREEN = "Home"
-    const val AGENT_LIST_SCREEN = "AgentListScreen"
-    const val AGENT_DETAIL_SCREEN = "AgentDetailScreen"
-    const val NOT_IMPLEMENTED_YET_SCREEN = "NotImplementedYetScreen"
-}
+import kotlinx.serialization.Serializable
+
+@Serializable
+object HomeScreen
+@Serializable
+object AgentListScreen
+@Serializable
+data class AgentDetailScreen(val uuid: String)
+@Serializable
+object NotImplementedYetScreen

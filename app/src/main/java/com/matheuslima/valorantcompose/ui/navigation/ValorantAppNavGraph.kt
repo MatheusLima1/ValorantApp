@@ -1,5 +1,6 @@
 package com.matheuslima.valorantcompose.ui.navigation
 
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -9,16 +10,16 @@ import com.matheuslima.valorantcompose.ui.screens.homeScreen.HomeScreen
 import com.matheuslima.valorantcompose.ui.screens.notImplementedYetScreen.NotImplementedYetScreen
 
 @Composable
-fun ValorantAppNavGraph() {
+fun ValorantAppNavGraph(windowSize: WindowSizeClass) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Routes.HOME_SCREEN) {
-        composable(Routes.HOME_SCREEN) {
-            HomeScreen(navController = navController)
+    NavHost(navController = navController, startDestination = HomeScreen) {
+        composable<HomeScreen> {
+            HomeScreen(navController = navController, windowSize)
         }
-        composable(Routes.AGENT_LIST_SCREEN){
-            AgentListScreen(navController = navController)
+        composable<AgentListScreen>{
+            AgentListScreen(navController = navController, windowSize)
         }
-        composable(Routes.NOT_IMPLEMENTED_YET_SCREEN){
+        composable<NotImplementedYetScreen>{
             NotImplementedYetScreen()
         }
     }
