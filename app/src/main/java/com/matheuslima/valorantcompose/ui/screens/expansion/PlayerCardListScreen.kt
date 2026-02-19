@@ -30,6 +30,7 @@ import com.matheuslima.valorantcompose.ui.navigation.Routes
 import com.matheuslima.valorantcompose.ui.screens.errorScreens.components.LottieAnimationComponent
 import com.matheuslima.valorantcompose.ui.theme.CyberCyan
 import com.matheuslima.valorantcompose.ui.theme.GlassBlack
+import com.matheuslima.valorantcompose.ui.screens.errorScreens.components.PlaceholderScreen
 import com.matheuslima.valorantcompose.ui.theme.ValorantDark
 import com.matheuslima.valorantcompose.ui.theme.ValorantWhite
 import com.matheuslima.valorantcompose.ui.viewmodel.ExpansionViewModel
@@ -71,7 +72,8 @@ fun PlayerCardListScreen(navController: NavController, viewModel: ExpansionViewM
                 }
             }
             is BaseResponse.Error<*> -> {
-                // Handle error
+                val errorMessage = (cardsResponse as BaseResponse.Error).error.message ?: "Unknown Error"
+                PlaceholderScreen(message = "Error: $errorMessage")
             }
         }
     }

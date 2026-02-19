@@ -42,14 +42,20 @@ fun ValorantBottomNavigation(navController: NavHostController) {
                 label = { Text(text = item.title) },
                 selected = currentRoute == item.route,
                 onClick = {
-                    navController.navigate(item.route) {
-                        navController.graph.startDestinationRoute?.let { route ->
-                            popUpTo(route) {
-                                saveState = true
-                            }
+                    if (item.route == Routes.HOME_SCREEN) {
+                        navController.navigate(item.route) {
+                            popUpTo(Routes.HOME_SCREEN) { inclusive = true }
                         }
-                        launchSingleTop = true
-                        restoreState = true
+                    } else {
+                        navController.navigate(item.route) {
+                            navController.graph.startDestinationRoute?.let { route ->
+                                popUpTo(route) {
+                                    saveState = true
+                                }
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(

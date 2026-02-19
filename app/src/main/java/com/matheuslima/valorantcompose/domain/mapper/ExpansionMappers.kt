@@ -15,7 +15,7 @@ fun PlayerCard.toDomain(): PlayerCardDomain = PlayerCardDomain(
     displayIcon = displayIcon,
     smallArt = smallArt,
     wideArt = wideArt,
-    largeArt = largeArt
+    largeArt = largeArt ?: displayIcon
 )
 
 fun Currency.toDomain(): CurrencyDomain = CurrencyDomain(
