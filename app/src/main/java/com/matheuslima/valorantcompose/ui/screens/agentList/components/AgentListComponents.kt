@@ -1,85 +1,140 @@
 package com.matheuslima.valorantcompose.ui.screens.agentList.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.matheuslima.valorantcompose.R
-import com.matheuslima.valorantcompose.data.response.entities.Agent
-import com.matheuslima.valorantcompose.ui.components.TitleTileCorner
-import com.matheuslima.valorantcompose.ui.helper.ColorGradientHelper.transformListColorStringInListColor
+import com.matheuslima.valorantcompose.domain.model.AgentDomain
+import com.matheuslima.valorantcompose.ui.theme.CyberCyan
+import com.matheuslima.valorantcompose.ui.theme.ValorantRed
+import com.matheuslima.valorantcompose.ui.theme.GlassBlack
 
 @Composable
 fun AgentListItem(
-    agent: Agent,
-    onClickAgent: (uuid: String) -> Unit = {}
+    agent: AgentDomain,
+    onItemClick: (AgentDomain) -> Unit
 ) {
-    val brush = agent.backgroundGradientColors?.let {
-        Brush.horizontalGradient(transformListColorStringInListColor(it))
-    }
-    ConstraintLayout(
+    Box(
         modifier = Modifier
-            .background(shape = RectangleShape, brush = brush!!)
             .fillMaxSize()
+            .clickable { onItemClick(agent) }
     ) {
-        val backgroundImageRef = createRef()
-        val displayIconRef = createRef()
-
-        AsyncImage(model = ImageRequest.Builder(LocalContext.current).data(agent.background)
-            .crossfade(true)
-            .placeholder(R.drawable.background_icon_gekko)
-            .build(),
-            contentDescription = "background image",
-            contentScale = ContentScale.FillBounds,
+        // Background Image with Blur
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(agent.background)
+                .crossfade(true)
+                .build(),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxSize()
-                .constrainAs(backgroundImageRef) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                })
-
-        AsyncImage(model = ImageRequest.Builder(LocalContext.current).data(agent.displayIcon)
-            .crossfade(true)
-            .placeholder(R.drawable.displayicon_gekko)
-            .build(),
-            contentDescription = "display icon image",
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier
-                .size(200.dp)
-                .constrainAs(displayIconRef) {
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
-            })
-
-        agent.displayName?.let { TitleTileCorner(title = it) }
-    }
-}
-
-@Preview
-@Composable
-fun AgentItemPreview() {
-    val gradients = listOf("c7f458ff", "d56324ff", "3a2656ff", "3a7233ff")
-
-    AgentListItem(
-        agent = Agent(
-            displayName = "Gekko",
-            displayIcon = "https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/displayicon.png",
-            background = "https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/background.png",
-            backgroundGradientColors = gradients
+                .blur(10.dp)
         )
-    )
+
+        // Dark Overlay for contrast
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f))
+        )
+
+        // Agent Portrait
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(agent.fullPortrait)
+                .crossfade(true)
+                .build(),
+            contentDescription = agent.displayName,
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 100.dp)
+        )
+
+        // Glassmorphism Card Info
+        Column(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .padding(24.dp)
+                .clip(RoundedCornerShape(24.dp))
+                .background(GlassBlack)
+                .border(
+                    width = 1.dp,
+                    brush = Brush.verticalGradient(
+                        listOf(CyberCyan.copy(alpha = 0.5f), Color.Transparent)
+                    ),
+                    shape = RoundedCornerShape(24.dp)
+                )
+                .padding(20.dp)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                AsyncImage(
+                    model = agent.role?.displayIcon,
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = agent.role?.displayName?.uppercase() ?: "",
+                    color = CyberCyan,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 2.sp
+                )
+            }
+            
+            Text(
+                text = agent.displayName.uppercase(),
+                color = Color.White,
+                fontSize = 42.sp,
+                fontWeight = FontWeight.Black,
+                letterSpacing = (-1).sp
+            )
+            
+            Text(
+                text = agent.description,
+                color = Color.White.copy(alpha = 0.7f),
+                fontSize = 14.sp,
+                maxLines = 3,
+                lineHeight = 20.sp
+            )
+            
+            Spacer(modifier = Modifier.height(16.dp))
+            
+            // View Details Button (Mock)
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(ValorantRed)
+                    .padding(horizontal = 24.dp, vertical = 8.dp)
+            ) {
+                Text(
+                    text = "VIEW DOSSIER",
+                    color = Color.White,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+    }
 }

@@ -1,83 +1,60 @@
 package com.matheuslima.valorantcompose.ui.screens.agentList
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.matheuslima.utilities.BaseResponse
-import com.matheuslima.utilities.exceptions.EmptyDataException
 import com.matheuslima.valorantcompose.R
-import com.matheuslima.valorantcompose.ui.navigation.AgentDetailScreen
-import com.matheuslima.valorantcompose.ui.navigation.AgentListScreen
 import com.matheuslima.valorantcompose.ui.screens.agentList.components.AgentListItem
-import com.matheuslima.valorantcompose.ui.screens.errorScreens.components.GeneralScreenErrorComponent
 import com.matheuslima.valorantcompose.ui.screens.errorScreens.components.LottieAnimationComponent
 import com.matheuslima.valorantcompose.ui.viewmodel.AgentListViewModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AgentListScreen(
-    navController: NavController,
-    windowSize: WindowSizeClass?,
-    viewModel: AgentListViewModel = hiltViewModel()
-) {
-    //        navController.currentBackStackEntry.savedStateHandle["data"] = "shit"
-//    var data = ""
-//    LaunchedEffect(key1 = navController) {
-//        data = navController.previousBackStackEntry.savedStateHandle.getStateFlow("data", "").toString()
-//    }
-
+fun AgentListScreen(navController: NavController, viewModel: AgentListViewModel = hiltViewModel()) {
     val agentsResponse by viewModel.agents.collectAsState()
-    val pagerState = rememberPagerState(initialPage = 0, initialPageOffsetFraction = 0f) {
-        20
-    }
-    VerticalPager(
-        state = pagerState,
-        modifier = Modifier.fillMaxSize(),
-        pageSize = PageSize.Fill,
-        pageSpacing = 8.dp
-    ) { page: Int ->
+
+    Box(modifier = Modifier.fillMaxSize().background(com.matheuslima.valorantcompose.ui.theme.ValorantDark)) {
         when (agentsResponse) {
             is BaseResponse.Loading -> {
-                LottieAnimationComponent(rawUrl = R.raw.loading)
+                LottieAnimationComponent(modifier = Modifier.align(Alignment.Center), rawUrl = R.raw.loading)
             }
 
             is BaseResponse.Success -> {
-                val response = (agentsResponse as BaseResponse.Success).data
-                if (response.data.isNotEmpty()) {
-                    AgentListItem(agent = response.data.filter { agent -> agent.isPlayableCharacter == true }[page]) {
-                        onAgentItemClicked(navController, it)
+                val agents = (agentsResponse as BaseResponse.Success).data
+                if (agents.isNotEmpty()) {
+                    val pagerState = rememberPagerState(initialPage = 0) { agents.size }
+                    VerticalPager(
+                        state = pagerState,
+                        modifier = Modifier.fillMaxSize(),
+                        pageSize = PageSize.Fill
+                    ) { page ->
+                        AgentListItem(
+                            agent = agents[page],
+                            onItemClick = { agent ->
+                                navController.navigate("${com.matheuslima.valorantcompose.ui.navigation.Routes.AGENT_DETAIL_SCREEN}/${agent.uuid}")
+                            }
+                        )
                     }
-                } else {
-                    GeneralScreenErrorComponent(
-                        animationPath = R.raw.dog_sad,
-                        exception = EmptyDataException()
-                    )
                 }
             }
 
             is BaseResponse.Error -> {
-                val error = (agentsResponse as BaseResponse.Error).error
-                print("${error.message} -  ${error.stackTrace}")
-                GeneralScreenErrorComponent(
-                    animationPath = R.raw.under_maintence,
-                    exception = error
-                )
+                // Handle error
             }
-
-            else -> {}
         }
     }
-}
-
-fun onAgentItemClicked(navController: NavController, uuid: String) {
-    navController.navigate(AgentDetailScreen(uuid))
 }

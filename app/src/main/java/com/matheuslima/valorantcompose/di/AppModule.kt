@@ -5,10 +5,9 @@ import com.matheuslima.utilities.UtilConstants.APP_BASE_URL
 import com.matheuslima.valorantcompose.data.api.ApiService
 import com.matheuslima.valorantcompose.data.datasource.interfaces.AgentsDataSource
 import com.matheuslima.valorantcompose.data.datasource.remote.RemoteAgentsDataSourceImpl
-import com.matheuslima.valorantcompose.data.repository.AgentsRepository
-import com.matheuslima.valorantcompose.data.repository.AgentsRepositoryImpl
-import com.matheuslima.valorantcompose.ui.helper.DefaultDispatchers
-import com.matheuslima.valorantcompose.ui.helper.DispatcherProvider
+import com.matheuslima.valorantcompose.data.repository.*
+import com.matheuslima.valorantcompose.domain.repository.*
+import com.matheuslima.valorantcompose.domain.usecase.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -57,12 +56,73 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providesDefaultDispatchers(): DispatcherProvider {
-        return DefaultDispatchers()
+    fun providesAgentsRepository(agentsDataSource: AgentsDataSource): AgentsRepository {
+        return AgentsRepositoryImpl(agentsDataSource)
     }
+
     @Singleton
     @Provides
-    fun providesAgentsRepository(agentsDataSource: AgentsDataSource, dispatchers: DispatcherProvider): AgentsRepository {
-        return AgentsRepositoryImpl(agentsDataSource, dispatchers)
+    fun providesGetAgentsUseCase(agentsRepository: AgentsRepository): GetAgentsUseCase {
+        return GetAgentsUseCase(agentsRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesWeaponsRepository(apiService: ApiService): WeaponsRepository {
+        return WeaponsRepositoryImpl(apiService)
+    }
+
+    @Singleton
+    @Provides
+    fun providesMapsRepository(apiService: ApiService): MapsRepository {
+        return MapsRepositoryImpl(apiService)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetWeaponsUseCase(weaponsRepository: WeaponsRepository): GetWeaponsUseCase {
+        return GetWeaponsUseCase(weaponsRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetMapsUseCase(mapsRepository: MapsRepository): GetMapsUseCase {
+        return GetMapsUseCase(mapsRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesContentRepository(apiService: ApiService): ContentRepository {
+        return ContentRepositoryImpl(apiService)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetTitlesUseCase(contentRepository: ContentRepository): GetTitlesUseCase {
+        return GetTitlesUseCase(contentRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetPlayerCardsUseCase(contentRepository: ContentRepository): GetPlayerCardsUseCase {
+        return GetPlayerCardsUseCase(contentRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetCurrenciesUseCase(contentRepository: ContentRepository): GetCurrenciesUseCase {
+        return GetCurrenciesUseCase(contentRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetGameModesUseCase(contentRepository: ContentRepository): GetGameModesUseCase {
+        return GetGameModesUseCase(contentRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetSeasonsUseCase(contentRepository: ContentRepository): GetSeasonsUseCase {
+        return GetSeasonsUseCase(contentRepository)
     }
 }

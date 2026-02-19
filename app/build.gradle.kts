@@ -4,8 +4,6 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -43,6 +41,9 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
     packaging {
         resources {
@@ -111,12 +112,6 @@ dependencies {
     androidTestImplementation (libs.mockk.android)
     testImplementation (libs.androidx.core.testing)
     testImplementation(libs.konsist)
-    testImplementation(libs.turbine)
-    testImplementation(libs.truth)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.androidx.material3.window.size)
-    implementation(libs.navigation.compose)
-    implementation(libs.kotlinx.serialization.json)
 }
 
 kapt {
