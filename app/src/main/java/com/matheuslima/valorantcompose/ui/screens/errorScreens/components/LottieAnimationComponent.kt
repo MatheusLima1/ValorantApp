@@ -9,7 +9,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 
 @Composable
-fun LottieAnimationComponent(modifier: Modifier, rawUrl: Int) {
+fun LottieAnimationComponent(modifier: Modifier = Modifier, rawUrl: Int) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(rawUrl))
     LottieAnimation(
         composition = composition,
