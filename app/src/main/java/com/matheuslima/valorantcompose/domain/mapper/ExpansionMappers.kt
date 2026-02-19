@@ -9,30 +9,41 @@ fun PlayerTitle.toDomain() = TitleDomain(
     titleText = titleText ?: ""
 )
 
-fun PlayerCard.toDomain() = PlayerCardDomain(
+fun PlayerCard.toDomain(): PlayerCardDomain = PlayerCardDomain(
     uuid = uuid,
     displayName = displayName,
     displayIcon = displayIcon,
+    smallArt = smallArt,
     wideArt = wideArt,
     largeArt = largeArt
 )
 
-fun Currency.toDomain() = CurrencyDomain(
+fun Currency.toDomain(): CurrencyDomain = CurrencyDomain(
     uuid = uuid,
     displayName = displayName,
-    displayIcon = displayIcon
+    displayNameSingular = displayNameSingular,
+    displayIcon = displayIcon,
+    largeIcon = largeIcon
 )
 
-fun GameMode.toDomain() = GameModeDomain(
+fun GameMode.toDomain(): GameModeDomain = GameModeDomain(
     uuid = uuid,
     displayName = displayName,
-    duration = duration
+    duration = duration,
+    allowsMatchTimeouts = allowsMatchTimeouts,
+    isTeamVoiceAllowed = isTeamVoiceAllowed,
+    isMinimapHidden = isMinimapHidden,
+    supportsMidQueues = supportsMidQueues,
+    economyConfig = economyConfig?.let {
+        EconomyConfigDomain(it.maxTheoreticalEconomy, it.maxTheoreticalWeaponCosts)
+    }
 )
 
-fun Season.toDomain() = SeasonDomain(
+fun Season.toDomain(): SeasonDomain = SeasonDomain(
     uuid = uuid,
     displayName = displayName,
     type = type,
     startTime = startTime,
-    endTime = endTime
+    endTime = endTime,
+    parentUuid = parentUuid
 )

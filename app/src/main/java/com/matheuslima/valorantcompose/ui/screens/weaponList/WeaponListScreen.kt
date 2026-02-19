@@ -31,6 +31,7 @@ import com.matheuslima.valorantcompose.ui.theme.ValorantDark
 import com.matheuslima.valorantcompose.ui.theme.ValorantWhite
 import androidx.compose.foundation.clickable
 import androidx.navigation.NavController
+import com.matheuslima.valorantcompose.ui.viewmodel.WeaponListViewModel
 
 @Composable
 fun WeaponListScreen(navController: NavController, viewModel: WeaponListViewModel = hiltViewModel()) {
@@ -38,11 +39,11 @@ fun WeaponListScreen(navController: NavController, viewModel: WeaponListViewMode
 
     Box(modifier = Modifier.fillMaxSize().background(ValorantDark)) {
         when (weaponsResponse) {
-            is BaseResponse.Loading -> {
+            is BaseResponse.Loading<*> -> {
                 LottieAnimationComponent(modifier = Modifier.align(Alignment.Center), rawUrl = R.raw.loading)
             }
-            is BaseResponse.Success -> {
-                val weapons = (weaponsResponse as BaseResponse.Success).data
+            is BaseResponse.Success<*> -> {
+                val weapons = (weaponsResponse as BaseResponse.Success<List<WeaponDomain>>).data
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(16.dp),
@@ -57,7 +58,7 @@ fun WeaponListScreen(navController: NavController, viewModel: WeaponListViewMode
                             modifier = Modifier.padding(bottom = 8.dp)
                         )
                     }
-                    items(weapons) { weapon ->
+                    items(items = weapons) { weapon ->
                         WeaponItem(weapon, onClick = {
                             navController.navigate("${com.matheuslima.valorantcompose.ui.navigation.Routes.WEAPON_DETAIL_SCREEN}/${weapon.uuid}")
                         })

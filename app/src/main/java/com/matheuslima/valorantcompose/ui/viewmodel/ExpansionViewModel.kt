@@ -18,7 +18,11 @@ class ExpansionViewModel @Inject constructor(
     private val getPlayerCardsUseCase: GetPlayerCardsUseCase,
     private val getCurrenciesUseCase: GetCurrenciesUseCase,
     private val getGameModesUseCase: GetGameModesUseCase,
-    private val getSeasonsUseCase: GetSeasonsUseCase
+    private val getSeasonsUseCase: GetSeasonsUseCase,
+    private val getPlayerCardDetailUseCase: GetPlayerCardDetailUseCase,
+    private val getCurrencyDetailUseCase: GetCurrencyDetailUseCase,
+    private val getGameModeDetailUseCase: GetGameModeDetailUseCase,
+    private val getSeasonDetailUseCase: GetSeasonDetailUseCase
 ) : ViewModel() {
 
     private val _titles: MutableStateFlow<BaseResponse<List<TitleDomain>>> = MutableStateFlow(BaseResponse.Loading())
@@ -35,6 +39,18 @@ class ExpansionViewModel @Inject constructor(
 
     private val _seasons: MutableStateFlow<BaseResponse<List<SeasonDomain>>> = MutableStateFlow(BaseResponse.Loading())
     val seasons: StateFlow<BaseResponse<List<SeasonDomain>>> = _seasons
+
+    private val _playerCardDetail: MutableStateFlow<BaseResponse<PlayerCardDomain>> = MutableStateFlow(BaseResponse.Loading())
+    val playerCardDetail: StateFlow<BaseResponse<PlayerCardDomain>> = _playerCardDetail
+
+    private val _currencyDetail: MutableStateFlow<BaseResponse<CurrencyDomain>> = MutableStateFlow(BaseResponse.Loading())
+    val currencyDetail: StateFlow<BaseResponse<CurrencyDomain>> = _currencyDetail
+
+    private val _gameModeDetail: MutableStateFlow<BaseResponse<GameModeDomain>> = MutableStateFlow(BaseResponse.Loading())
+    val gameModeDetail: StateFlow<BaseResponse<GameModeDomain>> = _gameModeDetail
+
+    private val _seasonDetail: MutableStateFlow<BaseResponse<SeasonDomain>> = MutableStateFlow(BaseResponse.Loading())
+    val seasonDetail: StateFlow<BaseResponse<SeasonDomain>> = _seasonDetail
 
     fun getTitles() {
         viewModelScope.launch {
@@ -63,6 +79,30 @@ class ExpansionViewModel @Inject constructor(
     fun getSeasons() {
         viewModelScope.launch {
             getSeasonsUseCase().collectLatest { _seasons.value = it }
+        }
+    }
+
+    fun getPlayerCardDetail(uuid: String) {
+        viewModelScope.launch {
+            getPlayerCardDetailUseCase(uuid).collectLatest { _playerCardDetail.value = it }
+        }
+    }
+
+    fun getCurrencyDetail(uuid: String) {
+        viewModelScope.launch {
+            getCurrencyDetailUseCase(uuid).collectLatest { _currencyDetail.value = it }
+        }
+    }
+
+    fun getGameModeDetail(uuid: String) {
+        viewModelScope.launch {
+            getGameModeDetailUseCase(uuid).collectLatest { _gameModeDetail.value = it }
+        }
+    }
+
+    fun getSeasonDetail(uuid: String) {
+        viewModelScope.launch {
+            getSeasonDetailUseCase(uuid).collectLatest { _seasonDetail.value = it }
         }
     }
 }

@@ -1,14 +1,10 @@
 package com.matheuslima.valorantcompose.data.api
 
 import com.matheuslima.utilities.UtilConstants.US
-import com.matheuslima.valorantcompose.data.response.entities.Agents
-import com.matheuslima.valorantcompose.data.response.entities.WeaponResponse
-import com.matheuslima.valorantcompose.data.response.entities.MapResponse
-import com.matheuslima.valorantcompose.data.response.entities.SingleAgentResponse
-import com.matheuslima.valorantcompose.data.response.entities.SingleWeaponResponse
-import com.matheuslima.valorantcompose.data.response.entities.SingleMapResponse
+import com.matheuslima.valorantcompose.data.response.entities.*
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {

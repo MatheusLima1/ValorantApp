@@ -16,44 +16,44 @@ import javax.inject.Inject
 
 class WeaponsRepositoryImpl @Inject constructor(private val apiService: ApiService) : WeaponsRepository {
     override suspend fun getWeapons(language: String?): Flow<BaseResponse<List<WeaponDomain>>> = flow {
-        emit(BaseResponse.Loading())
+        emit(BaseResponse.Loading<List<WeaponDomain>>())
         val response = apiService.getWeapons(language)
         if (response.isSuccessful && response.body() != null) {
-            emit(BaseResponse.Success(response.body()!!.data.map { it.toDomain() }))
+            emit(BaseResponse.Success<List<WeaponDomain>>(response.body()!!.data.map { it.toDomain() }))
         } else {
-            emit(BaseResponse.Error(EmptyDataException()))
+            emit(BaseResponse.Error<List<WeaponDomain>>(EmptyDataException()))
         }
-    }.catch { e -> emit(BaseResponse.Error(object : BaseException(e, e.message) {})) }
+    }.catch { e -> emit(BaseResponse.Error<List<WeaponDomain>>(object : BaseException(e, e.message) {})) }
 
     override suspend fun getWeaponByUuid(weaponUuid: String, language: String?): Flow<BaseResponse<WeaponDomain>> = flow {
-        emit(BaseResponse.Loading())
+        emit(BaseResponse.Loading<WeaponDomain>())
         val response = apiService.getWeaponByUuid(weaponUuid, language)
         if (response.isSuccessful && response.body() != null) {
-            emit(BaseResponse.Success(response.body()!!.data.toDomain()))
+            emit(BaseResponse.Success<WeaponDomain>(response.body()!!.data.toDomain()))
         } else {
-            emit(BaseResponse.Error(EmptyDataException()))
+            emit(BaseResponse.Error<WeaponDomain>(EmptyDataException()))
         }
-    }.catch { e -> emit(BaseResponse.Error(object : BaseException(e, e.message) {})) }
+    }.catch { e -> emit(BaseResponse.Error<WeaponDomain>(object : BaseException(e, e.message) {})) }
 }
 
 class MapsRepositoryImpl @Inject constructor(private val apiService: ApiService) : MapsRepository {
     override suspend fun getMaps(language: String?): Flow<BaseResponse<List<MapDomain>>> = flow {
-        emit(BaseResponse.Loading())
+        emit(BaseResponse.Loading<List<MapDomain>>())
         val response = apiService.getMaps(language)
         if (response.isSuccessful && response.body() != null) {
-            emit(BaseResponse.Success(response.body()!!.data.map { it.toDomain() }))
+            emit(BaseResponse.Success<List<MapDomain>>(response.body()!!.data.map { it.toDomain() }))
         } else {
-            emit(BaseResponse.Error(EmptyDataException()))
+            emit(BaseResponse.Error<List<MapDomain>>(EmptyDataException()))
         }
-    }.catch { e -> emit(BaseResponse.Error(object : BaseException(e, e.message) {})) }
+    }.catch { e -> emit(BaseResponse.Error<List<MapDomain>>(object : BaseException(e, e.message) {})) }
 
     override suspend fun getMapByUuid(mapUuid: String, language: String?): Flow<BaseResponse<MapDomain>> = flow {
-        emit(BaseResponse.Loading())
+        emit(BaseResponse.Loading<MapDomain>())
         val response = apiService.getMapByUuid(mapUuid, language)
         if (response.isSuccessful && response.body() != null) {
-            emit(BaseResponse.Success(response.body()!!.data.toDomain()))
+            emit(BaseResponse.Success<MapDomain>(response.body()!!.data.toDomain()))
         } else {
-            emit(BaseResponse.Error(EmptyDataException()))
+            emit(BaseResponse.Error<MapDomain>(EmptyDataException()))
         }
-    }.catch { e -> emit(BaseResponse.Error(object : BaseException(e, e.message) {})) }
+    }.catch { e -> emit(BaseResponse.Error<MapDomain>(object : BaseException(e, e.message) {})) }
 }

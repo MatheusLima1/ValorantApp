@@ -13,4 +13,9 @@ object Routes {
     const val CURRENCY_LIST_SCREEN = "CurrencyListScreen"
     const val GAME_MODE_LIST_SCREEN = "GameModeListScreen"
     const val SEASON_LIST_SCREEN = "SeasonListScreen"
+    
+    const val PLAYER_CARD_DETAIL_SCREEN = "PlayerCardDetailScreen"
+    const val CURRENCY_DETAIL_SCREEN = "CurrencyDetailScreen"
+    const val GAME_MODE_DETAIL_SCREEN = "GameModeDetailScreen"
+    const val SEASON_DETAIL_SCREEN = "SeasonDetailScreen"
 }

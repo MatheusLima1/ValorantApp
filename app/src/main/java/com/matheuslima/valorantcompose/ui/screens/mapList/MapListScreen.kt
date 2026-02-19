@@ -31,6 +31,7 @@ import com.matheuslima.valorantcompose.ui.theme.ValorantDark
 import com.matheuslima.valorantcompose.ui.theme.ValorantWhite
 import androidx.compose.foundation.clickable
 import androidx.navigation.NavController
+import com.matheuslima.valorantcompose.ui.viewmodel.MapListViewModel
 
 @Composable
 fun MapListScreen(navController: NavController, viewModel: MapListViewModel = hiltViewModel()) {
@@ -38,11 +39,11 @@ fun MapListScreen(navController: NavController, viewModel: MapListViewModel = hi
 
     Box(modifier = Modifier.fillMaxSize().background(ValorantDark)) {
         when (mapsResponse) {
-            is BaseResponse.Loading -> {
+            is BaseResponse.Loading<*> -> {
                 LottieAnimationComponent(modifier = Modifier.align(Alignment.Center), rawUrl = R.raw.loading)
             }
-            is BaseResponse.Success -> {
-                val maps = (mapsResponse as BaseResponse.Success).data
+            is BaseResponse.Success<*> -> {
+                val maps = (mapsResponse as BaseResponse.Success<List<MapDomain>>).data
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(16.dp),
@@ -57,7 +58,7 @@ fun MapListScreen(navController: NavController, viewModel: MapListViewModel = hi
                             modifier = Modifier.padding(bottom = 8.dp)
                         )
                     }
-                    items(maps) { map ->
+                    items(items = maps) { map ->
                         MapItem(map, onClick = {
                             navController.navigate("${com.matheuslima.valorantcompose.ui.navigation.Routes.MAP_DETAIL_SCREEN}/${map.uuid}")
                         })

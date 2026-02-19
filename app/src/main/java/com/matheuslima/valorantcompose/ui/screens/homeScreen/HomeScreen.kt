@@ -60,11 +60,50 @@ fun HomeScreen(navController: NavController) {
             onClick = { navController.navigate(MAP_LIST_SCREEN) }
         )
         
-        // Placeholders for other sections
         Spacer(modifier = Modifier.height(16.dp))
-        HomeScreenItem(R.drawable.bundle_list_background, "BUNDLES", "LATEST DROPS")
+        
+        HomeScreenItem(
+            backgroundImage = R.drawable.buddie_list_background,
+            title = "TITLES",
+            subtitle = "CLAIM YOUR IDENTITY",
+            onClick = { navController.navigate(com.matheuslima.valorantcompose.ui.navigation.Routes.TITLE_LIST_SCREEN) }
+        )
+        
         Spacer(modifier = Modifier.height(16.dp))
-        HomeScreenItem(R.drawable.competitive_tier_list_background, "COMPETITIVE", "RANK UP")
+        
+        HomeScreenItem(
+            backgroundImage = R.drawable.contract_list_background,
+            title = "PLAYER CARDS",
+            subtitle = "SHOW YOUR STYLE",
+            onClick = { navController.navigate(com.matheuslima.valorantcompose.ui.navigation.Routes.PLAYER_CARD_LIST_SCREEN) }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        HomeScreenItem(
+            backgroundImage = R.drawable.bundle_list_background,
+            title = "CURRENCIES",
+            subtitle = "CHECK YOUR BALANCE",
+            onClick = { navController.navigate(com.matheuslima.valorantcompose.ui.navigation.Routes.CURRENCY_LIST_SCREEN) }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        HomeScreenItem(
+            backgroundImage = R.drawable.events_list_background,
+            title = "GAME MODES",
+            subtitle = "CHOOSE YOUR PLAYSTYLE",
+            onClick = { navController.navigate(com.matheuslima.valorantcompose.ui.navigation.Routes.GAME_MODE_LIST_SCREEN) }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        HomeScreenItem(
+            backgroundImage = R.drawable.competitive_tier_list_background,
+            title = "SEASONS",
+            subtitle = "TRACK THE PROTOCOL",
+            onClick = { navController.navigate(com.matheuslima.valorantcompose.ui.navigation.Routes.SEASON_LIST_SCREEN) }
+        )
         
         Spacer(modifier = Modifier.height(32.dp))
     }

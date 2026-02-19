@@ -8,7 +8,24 @@ data class WeaponDomain(
     val cost: Int?,
     val fireRate: Double?,
     val magazineSize: Int?,
+    val weaponStats: WeaponStatsDomain?,
+    val shopData: ShopDataDomain?,
     val skins: List<WeaponSkinDomain>
+)
+
+data class WeaponStatsDomain(
+    val fireRate: Double,
+    val magazineSize: Int,
+    val runSpeedMultiplier: Double,
+    val reloadTimeSeconds: Double,
+    val firstBulletAccuracy: Double,
+    val shotgunPelletCount: Int
+)
+
+data class ShopDataDomain(
+    val cost: Int,
+    val category: String,
+    val categoryText: String
 )
 
 data class WeaponSkinDomain(
@@ -22,5 +39,7 @@ data class MapDomain(
     val displayName: String,
     val coordinates: String?,
     val displayIcon: String?,
-    val splash: String
+    val splash: String,
+    val tacticalDescription: String?,
+    val narrativeDescription: String?
 )
