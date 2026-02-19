@@ -2,6 +2,7 @@ package com.matheuslima.valorantcompose.di
 
 import com.google.gson.Gson
 import com.matheuslima.utilities.UtilConstants.APP_BASE_URL
+import com.matheuslima.valorantcompose.BuildConfig
 import com.matheuslima.valorantcompose.data.api.ApiService
 import com.matheuslima.valorantcompose.data.datasource.interfaces.AgentsDataSource
 import com.matheuslima.valorantcompose.data.datasource.remote.RemoteAgentsDataSourceImpl
@@ -29,7 +30,11 @@ class AppModule {
     @Singleton
     fun providesRetrofit(): Retrofit {
         val interceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BASIC
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
         }
         val client = OkHttpClient().newBuilder().apply {
             addInterceptor(interceptor = interceptor)
