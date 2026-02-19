@@ -72,9 +72,14 @@ To fix a bug present the master, first, you need to check the master branch, the
 
 ## Overview of the app:
 
-<table>
-  <tr>
-    <td><img src="imgs/main.jpg" alt="Main Screen" height = 640px/></td>
-    <td><img src="imgs/agentListFull.jpg" alt="Agent List" height = 640px/></td>
-  </tr> 
-</table>
+<p align="center">
+  <img src="imgs/home_screen.png" width="30%" alt="Home Screen"/>
+  <img src="imgs/agent_list.png" width="30%" alt="Agent List"/>
+  <img src="imgs/ranking_list.png" width="30%" alt="Ranking List"/>
+</p>
+
+<p align="center">
+  <img src="imgs/weapon_detail.png" width="30%" alt="Weapon Detail"/>
+  <img src="imgs/player_card_detail.png" width="30%" alt="Player Card Detail"/>
+  <img src="imgs/season_detail.png" width="30%" alt="Season Detail"/>
+</p>
